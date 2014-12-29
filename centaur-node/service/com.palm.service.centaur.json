@@ -1,0 +1,2 @@
+{"role": {"allowedNames": ["com.palm.service.centaur"], "type": "privileged", "exeName": "node"}, "permissions": [{"inbound": ["*"], "outbound": ["*"], "service": "com.palm.service.centaur"}]}
+

@@ -1,0 +1,5 @@
+#!/bin/sh 
+
+#set -ex
+
+triton -I ../include/ ../main.js

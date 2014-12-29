@@ -1,0 +1,11 @@
+{
+    "port" : 8080,
+
+    "_default_host_" : {
+        "root" : "/Users/kenjitan/Desktop/projects/nodejs/centaur-node/test/doc_root"
+    },
+    
+    "default_host" : {
+        "root" : "/Users/kenjitan/Desktop/projects/"
+    }
+}

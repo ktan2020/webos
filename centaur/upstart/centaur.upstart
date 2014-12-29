@@ -1,0 +1,8 @@
+# centaur
+
+start on stopped finish
+
+respawn
+
+exec /usr/bin/triton -I /usr/palm/tools/centaur/include -d --syslog /usr/palm/tools/centaur/main.js
+

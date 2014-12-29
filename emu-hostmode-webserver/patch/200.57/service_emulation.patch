@@ -1,0 +1,87 @@
+--- service_emulation.js	2010-01-07 20:29:01.000000000 -0800
++++ service_emulation_new.js	2010-01-07 20:28:53.000000000 -0800
+@@ -26,6 +26,7 @@
+ 		sendRequestToMojoHost: function() {
+ 			var params = this.parameters || "{}";
+ 			var ajaxParams = {
++				sessionID: window.parent.top.name,
+ 				methodParams: params,
+ 				serviceMethod: this.method,
+ 				serviceName: this.identifier
+@@ -60,10 +61,12 @@
+ 		},
+ 
+ 		onSuccess: function(transport) {
+-			if (!PalmServiceBridge.manager) {
+-				PalmServiceBridge.manager = new PalmServiceBridge.Manager();
++			var json = transport.responseText.evalJSON(true);
++			
++			if (!window.parent.comet.serviceBridgeManager) {
++				window.parent.comet.serviceBridgeManager = new PalmServiceBridge.Manager();
+ 			}
+-			PalmServiceBridge.manager.requests[transport.responseJSON.token] = this;
++			window.parent.comet.serviceBridgeManager.requests[json.token] = this;
+ 		},
+ 
+ 		onFailure: function(transport) {
+@@ -92,45 +95,24 @@
+ 		initialize: function() {
+ 			Mojo.Log.info("Creating PalmServiceBridge.Manager");
+ 			this.requests = {};
+-			this.worked = this.onSuccess.bind(this);
+-			this.failed = this.onFailure.bind(this);
+-			this.responsePoller = this.poll.bind(this);
+-			this.responsePoller.delay(0.5);
+-		},
+-		
+-		poll: function() {
+-			var url = '/bridge/get_responses';
+-			this.request = new Ajax.Request(url, {
+-				method: 'get',
+-				onSuccess: this.worked,
+-				onFailure: this.failed
+-			});
+ 		},
+ 		
+-		onSuccess: function(transport) {
+-			if (transport.responseJSON.length) {
+-				var that = this;
+-				transport.responseJSON.each(function(message) {
+-					var req = that.requests[message.responseToken];
+-					if (req) {
+-						try { 
+-							req.onservicecallback(message.payload);
+-						} catch (e) {
+-							Mojo.Log.error("Exception in service callback: " + e.name + ":" + e.message);  
+-						}
+-					} else {
+-						// it's an unsolicited notification from the server
+-						var url = message.urlToLoad;
+-						if (url) {
+-							window.location.href = url;
+-						}
+-					}
+-				});
++		callback: function(response) {
++			Mojo.Log.info("PalmServiceBridge.Manager received callback - response:(" + response + ")"); 
++			
++			var json = response.evalJSON(true);
++			var token = json.token;
++			var payload = json.payload;
++			
++			var req = this.requests[token];
++			if (req) {
++				try {
++					req.onservicecallback(payload);
++				} catch (err) {
++					Mojo.Log.error("Exception in service callback: " + err);
++				}
++				this.requests[token] = undefined;
+ 			}
+-			this.responsePoller.delay(0.5);
+-		},
+-		
+-		onFailure: function(transport) {
+ 		}
+ 	});
+ 

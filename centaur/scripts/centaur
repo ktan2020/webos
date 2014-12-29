@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# run from root for now...
+cd /
+
+# launch triton+centaur with debugging to stdout
+triton -I /usr/palm/tools/centaur/include/ -d --stdout /usr/palm/tools/centaur/main.js
+

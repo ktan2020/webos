@@ -1,0 +1,32 @@
+--- service.js.bak	2010-08-30 12:53:19.000000000 -0700
++++ service.js	2010-08-27 13:54:50.000000000 -0700
+@@ -4,6 +4,7 @@
+  * Service
+  * Access device services like the accelerometer, GPS, contacts, and more!
+  **/
++var request_token = 0;
+ var Service = (function() {
+ 	/**
+ 	 * class Service.Request
+@@ -168,7 +169,7 @@
+ 							return pairs.join('&');
+ 						}
+ 						
+-						window.PalmServiceBridge = function() {};
++						window.PalmServiceBridge = function() { this.token = ++request_token; };
+ 						window.PalmServiceBridge.prototype = {
+ 							call: function(fullUrl, parameters) {
+ 								this.fullUrl = fullUrl;
+@@ -189,6 +190,7 @@
+ 								var params = this.parameters || "{}";
+ 								var self = this;
+ 								var ajaxParams = {
++									token: this.token,
+ 									sessionID: window.parent.top.name,
+ 									methodParams: params,
+ 									serviceMethod: this.method,
+@@ -294,4 +296,3 @@
+ 	exports.Service = module;
+ 	return module;
+ })();
+-

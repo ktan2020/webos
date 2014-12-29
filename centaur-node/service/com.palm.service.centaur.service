@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=com.palm.service.centaur
+Type=static
+Exec=/usr/bin/run-js-service -n /usr/palm/services/com.palm.service.centaur
+

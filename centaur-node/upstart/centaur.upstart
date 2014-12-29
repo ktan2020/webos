@@ -1,0 +1,9 @@
+# centaur
+
+start on stopped finish
+
+respawn
+
+exec /usr/bin/centaur-node
+
+

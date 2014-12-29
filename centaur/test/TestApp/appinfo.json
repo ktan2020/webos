@@ -1,0 +1,9 @@
+{
+	"id": "com.palm.testapp",
+	"title": "Test App",
+	"type": "web",
+	"main": "index.html",
+	"icon": "icon.png",
+	"version": "1.0.0",
+	"vendor": "Some company"
+}

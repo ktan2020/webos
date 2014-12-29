@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# run from root for now...
+cd /
+
+# launch centaur-nodejs with debugging to stdout
+node /usr/palm/tools/centaur-node/server.js

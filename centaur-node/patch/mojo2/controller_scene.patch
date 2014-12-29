@@ -1,0 +1,16 @@
+--- controller_scene.js.bak	2010-09-03 12:59:42.000000000 -0700
++++ controller_scene.js	2010-09-03 11:31:36.000000000 -0700
+@@ -282,7 +282,7 @@
+ 		// If we're a cross-app launched scene, we need to tell sysmgr we're ready for display.
+ 		if(this.crossLaunchPush && !this._didInitialActivate) {
+ 			this._didInitialActivate = true;
+-			if(this.window.PalmSystem.crossAppSceneActive) {
++			if(this.window.PalmSystem && this.window.PalmSystem.crossAppSceneActive) {
+ 				this.window.PalmSystem.crossAppSceneActive();
+ 			} else {
+ 				Mojo.Log.error("crossAppSceneActive() not available, but we would have called it.");
+@@ -1256,4 +1256,3 @@
+ 
+ Mojo.Log.addLoggingMethodsToPrototype(Mojo.Controller.SceneController);
+ 
+-

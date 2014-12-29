@@ -1,0 +1,25 @@
+--- debug.js.bak	2010-09-01 13:32:36.000000000 -0700
++++ debug.js	2010-09-01 13:26:47.000000000 -0700
+@@ -68,7 +68,21 @@
+ 			enableFullScreenMode: function() {},
+ 			setWindowProperties: function() {},
+ 			identifier: Mojo.Core.App.name,
+-			isMinimal: false
++			isMinimal: false,
++			
++			windowIdentifier: 1,
++			stageReady: function() {},
++			prepareSceneTransition: function() {}, 
++			runCrossAppTransition: function() {},
++			runSceneTransition: function() {}, 
++			cancelSceneTransition:  function() {},  
++			crossAppSceneActive: function() {}, 
++			paste: function() {}, 
++			isActivated: 1,
++			deactivate: function() {},
++			addNewContentIndicator: function() {}, 
++			removeNewContentIndicator: function() {}, 
++			setAlertSound: function() {}
+ 		};
+ 	}
+ 

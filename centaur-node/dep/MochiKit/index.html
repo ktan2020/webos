@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Demo of MochiKit.LoggingPane</title>
+        <link href="./logging_pane.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="./MochiKit.js"></script>
+    </head>
+    <body>
+        <h1>MochiKit.LoggingPane</h1>
+        
+        <div>
+            Logging Panes:
+            <ul>
+                <li><a href="javascript:logger.debuggingBookmarklet();">Debugging Bookmarklet</a> - Pop-up with LoggingPane</li>
+                <li><a href="javascript:void(createLoggingPane(true));">Inline LoggingPane</a></li>
+            </ul>
+        </div>
+        <div>
+            Logging Actions:
+            <ul>
+                <li><a href="javascript:logDebug('a DEBUG level message');">logDebug(...)</a></li>
+                <li><a href="javascript:log('an INFO level message');">log(...)</a></li>
+                <li><a href="javascript:logWarning('a WARNING level message');">logWarning(...)</a></li>
+                <li><a href="javascript:logError('an ERROR level message');">logError(...)</a></li>
+                <li><a href="javascript:logFatal('a FATAL level message');">logFatal(...)</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
+

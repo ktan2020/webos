@@ -1,0 +1,25 @@
+--- transitions.js.bak	2010-09-03 13:02:38.000000000 -0700
++++ transitions.js	2010-09-03 09:39:54.000000000 -0700
+@@ -212,7 +212,7 @@
+ 
+ 	// TODO: 'isPop' cannot reliably be specified at this point, but prepareSceneTransition() needs it, so sometimes it can be wrong.
+ 	// Soon, it will be passed to runSceneTransition() instead.
+-	this.window.PalmSystem.prepareSceneTransition(isPop);
++	if(this.window.PalmSystem && this.window.PalmSystem.prepareSceneTransition) this.window.PalmSystem.prepareSceneTransition(isPop);
+ 	
+ 	
+ };
+@@ -280,7 +280,7 @@
+ 	} else {
+ 		// TODO: Currently, runSceneTransition() does not accept arguments, but it will be changing to use these soon,
+ 		// and isPop will no longer need to be passed to prepareSceneTransition.
+-		this.window.PalmSystem.runSceneTransition(this.transitionType, this.isPop);
++		if (this.window.PalmSystem && this.window.PalmSystem.runSceneTransition) this.window.PalmSystem.runSceneTransition(this.transitionType, this.isPop);
+ 		_.defer(this.finish);
+ 	}
+ };
+@@ -310,4 +310,3 @@
+ 
+ 
+ 
+-

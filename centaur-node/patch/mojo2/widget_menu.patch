@@ -1,0 +1,11 @@
+--- widget_menu.js.bak	2010-09-03 09:32:08.000000000 -0700
++++ widget_menu.js	2010-09-03 09:52:54.000000000 -0700
+@@ -802,7 +802,7 @@
+ 				_mojoContainerLayer: this.controller.scene.dialogContainerLayer
+ 			};
+ 
+-			this.window.PalmSystem.hideSpellingWidget();
++			if (this.window.PalmSystem && thus.window.PalmSystem.hideSpellingWidget) this.window.PalmSystem.hideSpellingWidget();
+ 			newAppMenuPopup = this.controller.scene.popupSubmenu(popupModel);
+ 
+ 			if(!newAppMenuPopup.mojo.isClosed()) {

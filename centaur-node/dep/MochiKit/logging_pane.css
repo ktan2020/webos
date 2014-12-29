@@ -1,0 +1,85 @@
+h1 {
+color:#4B4545;
+font-size:2em;
+text-align:center;
+}
+table.datagrid {
+border-collapse:collapse;
+width:100%;
+}
+table.datagrid thead th {
+background-color:#4B4545;
+background-position:right center;
+background-repeat:no-repeat;
+color:white;
+font-size:0.9em;
+font-weight:bold;
+padding:0.3em 5px 0.3em 0.7em;
+text-align:left;
+}
+table.datagrid thead th a {
+background-position:right center;
+background-repeat:no-repeat;
+color:white;
+font-size:1em;
+padding-right:15px;
+text-decoration:none;
+}
+table.datagrid thead th.over {
+background-color:#746B6B;
+cursor:pointer;
+}
+table.datagrid tbody th {
+font-weight:bold;
+}
+table.datagrid tbody td, table.datagrid tbody th {
+border-bottom:1px solid #EEEEEE;
+padding:0.3em 0.7em;
+text-align:left;
+}
+table.datagrid tbody tr.alternate td, table.datagrid tbody tr.alternate th {
+background-color:#F1F1F1;
+}
+table.datagrid tfoot td, table.datagrid tfoot th {
+background-color:#FFFEE3;
+border-top:2px solid #4B4545;
+color:#4B4545;
+font-weight:bold;
+padding:0.5em;
+}
+table.datagrid tfoot th {
+text-align:left;
+}
+table.datagrid tfoot td {
+}
+.invisible {
+display:none;
+}
+input.textbox, textarea {
+border:1px solid #CCCCCC;
+font-size:0.95em;
+margin-top:0.3em;
+padding:2px 4px;
+}
+input.textbox:focus, textarea:focus {
+background-color:#FFFEE3;
+}
+.highlight {
+font-weight:bold;
+}
+fieldset {
+border:medium none;
+margin:0;
+padding:0;
+}
+fieldset label {
+color:#4B4545;
+font-weight:bold;
+}
+fieldset .field {
+margin-bottom:1em;
+}
+label.error {
+color:red;
+}
+

@@ -1,0 +1,85 @@
+--- service_emulation.js	2010-02-01 15:42:18.000000000 -0800
++++ service_emulation_new.js	2010-02-17 15:50:55.000000000 -0800
+@@ -6,7 +6,7 @@
+ 
+ if (window.palmService === undefined && 
+ 	window.PalmServiceBridge === undefined ) {
+-
++	
+ 	window.PalmServiceBridge = Class.create({
+ 		call: function(fullUrl, parameters) {
+ 			this.fullUrl = fullUrl;
+@@ -26,6 +26,7 @@
+ 		sendRequestToMojoHost: function() {
+ 			var params = this.parameters || "{}";
+ 			var ajaxParams = {
++				sessionID: window.parent.top.name,
+ 				methodParams: params,
+ 				serviceMethod: this.method,
+ 				serviceName: this.identifier
+@@ -60,10 +61,8 @@
+ 		},
+ 
+ 		onSuccess: function(transport) {
+-			if (!PalmServiceBridge.manager) {
+-				PalmServiceBridge.manager = new PalmServiceBridge.Manager();
+-			}
+-			PalmServiceBridge.manager.requests[transport.responseJSON.token] = this;
++			var json = transport.responseText.evalJSON(true);
++			window.parent.comet.serviceBridgeManager.requests[json.token] = this;
+ 		},
+ 
+ 		onFailure: function(transport) {
+@@ -88,52 +87,6 @@
+ 		unknownServiceError: {"returnValue":false, "errorCode":-1, "errorText":"mojo-host error: "}
+ 	});
+ 
+-	PalmServiceBridge.Manager = Class.create({
+-		initialize: function() {
+-			Mojo.Log.info("Creating PalmServiceBridge.Manager");
+-			this.requests = {};
+-			this.worked = this.onSuccess.bind(this);
+-			this.failed = this.onFailure.bind(this);
+-			this.responsePoller = this.poll.bind(this);
+-			this.responsePoller.delay(0.5);
+-		},
+-		
+-		poll: function() {
+-			var url = '/bridge/get_responses';
+-			this.request = new Ajax.Request(url, {
+-				method: 'get',
+-				onSuccess: this.worked,
+-				onFailure: this.failed
+-			});
+-		},
+-		
+-		onSuccess: function(transport) {
+-			if (transport.responseJSON.length) {
+-				var that = this;
+-				transport.responseJSON.each(function(message) {
+-					var req = that.requests[message.responseToken];
+-					if (req) {
+-						try { 
+-							req.onservicecallback(message.payload);
+-						} catch (e) {
+-							Mojo.Log.error("Exception in service callback: " + e.name + ":" + e.message);  
+-						}
+-					} else {
+-						// it's an unsolicited notification from the server
+-						var url = message.urlToLoad;
+-						if (url) {
+-							window.location.href = url;
+-						}
+-					}
+-				});
+-			}
+-			this.responsePoller.delay(0.5);
+-		},
+-		
+-		onFailure: function(transport) {
+-		}
+-	});
+-
+ }
+ 
+ /** This will this file to be considered private from a documentation perspective */

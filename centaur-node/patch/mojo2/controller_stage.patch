@@ -1,0 +1,43 @@
+--- controller_stage.js.bak	2010-09-03 12:59:26.000000000 -0700
++++ controller_stage.js	2010-09-07 11:52:04.000000000 -0700
+@@ -126,7 +126,7 @@
+ 		var appAssistantCleanup = appController.getAssistantCleanup();
+ 		var winRef = this.window;
+ 		winRef.removeEventListener('unload', this._cleanup, false);
+-		delete appController._stageMgr._creationIdHash[winRef.PalmSystem.windowIdentifier];
++		if (winRef.PalmSystem && winRef.PalmSystem.windowIdentifier) delete appController._stageMgr._creationIdHash[winRef.PalmSystem.windowIdentifier];
+ 		
+ 		// Deactivate scene stack & pop all scenes synchronously.
+ 		// This ensures that cleanup code won't typically execute after the window has been closed.
+@@ -204,7 +204,7 @@
+ 
+ 
+ 	isActive: function() {
+-		return this.window.PalmSystem.isActivated;
++		return (this.window.PalmSystem && this.window.PalmSystem.isActivated) ? this.window.PalmSystem.isActivated : null;
+ 	},
+ 
+ 	/**
+@@ -436,7 +436,7 @@
+ 	setWindowProperties: function(props) {
+ 		// Pass through to PalmSystem.  Assume it's the responsibility of PalmSystem.setWindowProperties()
+ 		// to deal with properties it's never heard of.
+-		this.window.PalmSystem.setWindowProperties(props);
++		if (this.window.PalmSystem && this.window.PalmSystem.setWindowProperties) this.window.PalmSystem.setWindowProperties(props);
+ 	},
+ 
+ 	/*$
+@@ -488,7 +488,7 @@
+ 	 *
+ 	 */
+ 	indicateNewContent: function(hasNew) {
+-		if(this.window.PalmSystem && this.window.PalmSystem.addNewContentIndicator) {
++		if(this.window.PalmSystem && this.window.PalmSystem.addNewContentIndicator && this.window.PalmSystem.removeNewContentIndicator) {
+ 			if(hasNew) {
+ 				if(this._throbId) {
+ 					this.window.PalmSystem.removeNewContentIndicator(this._throbId);
+@@ -1681,4 +1681,3 @@
+ };
+ 
+ /*$#nocode-*/
+-
